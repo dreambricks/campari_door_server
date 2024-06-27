@@ -2,6 +2,33 @@ import csv
 import time
 import requests
 import parameters
+from datetime import datetime
+
+csv_filename = 'logs/key_press_log.csv'
+backup_filename = 'logs/key_press_log_backup.csv'
+
+
+def init_csv(filename):
+    try:
+        with open(filename, mode='x', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['status', 'project', 'additional', 'timePlayed'])
+    except FileExistsError:
+        pass
+
+
+def save_csv():
+    time_played = datetime.now()
+    formatted_time_played = time_played.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    status = 'botao_pressionado'
+    project = parameters.LOG_PROJECT_ID
+    additional = ''
+    time_played = formatted_time_played
+
+    with open(csv_filename, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([status, project, additional, time_played])
 
 
 def send_log(status, project, additional, time_played):
