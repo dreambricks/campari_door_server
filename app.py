@@ -27,7 +27,7 @@ def on_left_arrow_press(event):
     if start_time <= current_time <= end_time:
         if current_datetime - ultima_tecla_tempo >= parameters.DELAY_TO_PRESS:
             # ser.write(b'1')
-            print_script.execute_ps1('print_cp1500_v03.ps1')
+            print_script.execute_ps1('runprint.ps1')
             save_csv()
             print("tecla apertada")
             ultima_tecla_tempo = current_datetime
