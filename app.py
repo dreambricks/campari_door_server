@@ -5,6 +5,7 @@ import time
 import threading
 from log_sender import process_csv_and_send_logs, init_csv, csv_filename, backup_filename, save_csv
 import print_script
+import clear_print_queue
 
 ultima_tecla_tempo = 0
 # ser = serial.Serial(parameters.SERIAL_PORT, parameters.SERIAL_BAUDRATE, timeout=5)
@@ -27,6 +28,7 @@ def on_left_arrow_press(event):
     if start_time <= current_time <= end_time:
         if current_datetime - ultima_tecla_tempo >= parameters.DELAY_TO_PRESS:
             # ser.write(b'1')
+            clear_print_queue.run_main()
             print_script.execute_ps1('runprint.ps1')
             save_csv()
             print("tecla apertada")
